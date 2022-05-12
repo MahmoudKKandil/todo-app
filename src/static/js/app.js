@@ -106,7 +106,7 @@ function AddItemForm({ onNewItem }) {
                         disabled={!newItem.length}
                         className={submitting ? 'disabled' : ''}
                     >
-                        {submitting ? 'Adding...' : 'Add Item'}
+                        {submitting ? 'Adding...' : 'Add'}
                     </Button>
                 </InputGroup.Append>
             </InputGroup>
@@ -152,9 +152,8 @@ function ItemDisplay({ item, onItemUpdate, onItemRemoval }) {
                         }
                     >
                         <i
-                            className={`far ${
-                                item.completed ? 'fa-check-square' : 'fa-square'
-                            }`}
+                            className={`far ${item.completed ? 'fa-check-square' : 'fa-square'
+                                }`}
                         />
                     </Button>
                 </Col>

@@ -1,0 +1,48 @@
+# This is a comment in YAML.
+--- # Use 3 dashes to separate different YAML config files in the same document.
+
+# YAML Scalars (Similar to hard-coded variables: int/float/str)
+key: value
+name: William Paul Liggett # Optional: Use single/double quotes for delimiters.
+hips_lie: false
+cool_points: 5000
+dance_level: 11.2
+teacher_since: 2018-09-01
+leet_time: 13:37:00
+leet_teach: 2018-09-01T17:37:00.0Z
+null_example:
+
+multiline_string: |
+  First line.
+  Second line here!
+
+single_long_line: >
+  This is really a
+  single-line, despite appearances.
+
+# YAML Sequence (Python List / C-like Array) [Ordered]
+speaks:
+  - Java
+  - JavaScript
+  - Python
+
+# Alternate Syntax of a List/Array
+speaks_alt: [Java, JavaScript, Python]
+
+# YAML Mapping (JS-style Object / Python-style Dictionary) [Unordered]
+cup:
+  contents: Coffee
+  hot: true
+
+# Alternate Syntax of an Object/Dictionary
+cup_alt: { contents: Coffee, hot: true }
+#
+# Three dots (...) indicate the end of the YAML area.
+# Not required, but can be used to separate different YAML configs.
+# It is optional for a single YAML config (like this example), which
+# even if you have two YAML config streams in one file, you can just
+# avoid using the three dots (...) and go straight into the three
+# dashes (---). This method makes my IDE happier.
+#...
+#---
+#second_yaml_config_stream: yarp
