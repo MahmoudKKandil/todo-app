@@ -37,6 +37,9 @@ cup:
 # Alternate Syntax of an Object/Dictionary
 cup_alt: { contents: Coffee, hot: true }
 #
+# ***** My IDE keeps removing the blank line separating this comment
+# ***** area from the YAML syntax above. Hence, the blank'ish # above!
+#
 # Three dots (...) indicate the end of the YAML area.
 # Not required, but can be used to separate different YAML configs.
 # It is optional for a single YAML config (like this example), which
