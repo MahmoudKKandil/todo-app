@@ -11,7 +11,10 @@ To get the app working, clone the repo, then there are two options:
  - Production: `docker compose up -d`
  - Development: `docker compose -f compose-dev.yaml up -d`
 
+Then, open up a web browser and navigate to: http://localhost:3000/
+
 Tip: When in dev-mode, you must specify the `-f compose-dev.yaml` for every Docker Compose command.
 
 Also, if you want to create a new dev-specific Docker image, then do the following, but replace DOCKERHUBACCOUNT with your own Docker Hub account and replace the #.#.# with the appropriate semver:
+
 `docker image build -t DOCKERHUBACCOUNT/getting-started:dev-latest -t DOCKERHUBACCOUNT/getting-started:dev-#.#.# -f Dockerfile-dev .`
