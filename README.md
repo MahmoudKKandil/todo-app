@@ -18,3 +18,7 @@ Tip: When in dev-mode, you must specify the `-f compose-dev.yaml` for every Dock
 Also, if you want to create a new dev-specific Docker image, then do the following, but replace DOCKERHUBACCOUNT with your own Docker Hub account and replace the #.#.# with the appropriate semver:
 
 `docker image build -t DOCKERHUBACCOUNT/getting-started:dev-latest -t DOCKERHUBACCOUNT/getting-started:dev-#.#.# -f Dockerfile-dev .`
+
+Finally, if you want a solid explanation of YAML files and Docker's specific syntax with YAML, look at:
+ - YAML_File_Example.yaml
+ - compose-dev-from-pub-imgs.yaml
