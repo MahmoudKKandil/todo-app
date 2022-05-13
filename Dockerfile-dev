@@ -4,6 +4,7 @@ RUN apk add --no-cache python2 g++ make
 WORKDIR /app
 # Image layer caching via dependency caching.
 COPY package.json yarn.lock ./
-RUN yarn install --production
+# Yarn Classic: We're not specifying --production, so it is for dev.
+RUN yarn install
 COPY . .
-CMD ["node", "src/index.js"]
+CMD ["yarn", "run", "dev"]

@@ -1,0 +1,2 @@
+# Tells Docker to ignore the Node.js dep folder when creating an image.
+node_modules
