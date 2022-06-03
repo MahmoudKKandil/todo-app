@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todo-app
+  name: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      containers:
+      - image: junktext/getting-started:1.0.4
+        name: getting-started
+        ports:
+          - containerPort: 3000
+        resources:
+          limits: 
+            memory: "512Mi"
+            cpu: "1"

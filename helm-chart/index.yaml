@@ -1,0 +1,37 @@
+apiVersion: v1
+entries:
+  todo-app:
+  - apiVersion: v2
+    appVersion: 1.0.4
+    created: "2022-06-02T13:21:40.523973753-04:00"
+    description: A web-based To-Do app to help you remember the things you need to
+      do!
+    digest: 41a4216ebfafdee9d16b4a2dd8206528c92e7421f2186710b15e97e2982f7a3b
+    name: todo-app
+    type: application
+    urls:
+    - todo-app-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.0.4
+    created: "2022-06-02T13:21:40.523272689-04:00"
+    description: A Helm chart for Kubernetes with Docker's To-Do App (modifications
+      by junktext).
+    digest: f6b6dca9266869566232f5aff50dce93234cc978ba121eb6852bc296212d116d
+    name: todo-app
+    type: application
+    urls:
+    - todo-app-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 1.0.4
+    created: "2022-06-02T13:21:40.522419522-04:00"
+    description: A Helm chart for Kubernetes with Docker's To-Do App (modifications
+      by junktext).
+    digest: 05642da11e8fd811f1dd7a15a5ad945de2066880369707afe9b6582ce60d2e14
+    name: todo-app
+    type: application
+    urls:
+    - todo-app-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-06-02T13:21:40.517913715-04:00"
