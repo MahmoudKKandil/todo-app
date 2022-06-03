@@ -13,7 +13,7 @@ Get the To-Do app running in a browser by opening up port 3000, by default.
 
 For instance, run the following command and get the EXTERNAL-IP listed:
 
-  $ kubectl get svc todo-app
+  $ kubectl get svc
 
 If you are running the app in minikube, you first need to open up another 
 terminal and run the following as a non-root user with sudo access:
