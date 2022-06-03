@@ -2,23 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: todo-app
-  name: todo-app
+    app: {{ .Chart.Name }}  # Chart.yaml: The 'name' scalar.
+  name: {{ .Release.Name }} # Name of the local Helm release.
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: todo-app
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: todo-app
+        app: {{ .Chart.Name }}
     spec:
       containers:
-      - image: junktext/getting-started:1.0.4
-        name: getting-started
+        # Parses into something like: junktext/getting-started:1.0.4
+      - image: {{ .Values.image.repository }}:{{ .Chart.AppVersion }}
+        # We only have 1 container in each Pod, so we can just a simple name.
+        name: {{ .Release.Name }}
         ports:
-          - containerPort: 3000
+          - containerPort: {{ .Values.service.port }}
         resources:
           limits: 
             memory: "512Mi"
