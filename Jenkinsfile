@@ -18,6 +18,8 @@ pipeline {
         stage('Build & Test') {
             steps {
                 nodejs('NodeJS-v12-with-Yarn-v1') {
+                    // NOTE: Jenkins did not like $() in: export SQLITE_DB_LOCATION="$(pwd)/sqlite_for_non_docker_dev/todo.db"
+                    // SOLUTION: Just used ./ instead.
                     sh """
                         echo ---[ Versions of Yarn, Node.js, and related dependencies. ]---
                         yarn versions
@@ -27,7 +29,7 @@ pipeline {
 
                         echo ---[ JS Unit Testing via Jest ]---
                         mkdir sqlite_for_non_docker_dev
-                        export SQLITE_DB_LOCATION="./sqlite_for_non_docker_dev/todo.db"
+                        export SQLITE_DB_LOCATION="$(pwd)/sqlite_for_non_docker_dev/todo.db"
                         yarn test
                     """
                 }
