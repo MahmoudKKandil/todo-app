@@ -22,7 +22,7 @@ pipeline {
                         echo ---[ Versions of Yarn, Node.js, and related dependencies. ]---
                         yarn versions
 
-                        echo ---[ Installing the app's JS dependencies via Yarn. ]---
+                        echo "---[ Installing the app's JS dependencies via Yarn. ]---"
                         yarn install
 
                         echo ---[ JS Unit Testing via Jest ]---
