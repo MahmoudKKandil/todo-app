@@ -1,2 +1,3 @@
 node_modules/
 sqlite_for_non_docker_dev/
+security_scans/
