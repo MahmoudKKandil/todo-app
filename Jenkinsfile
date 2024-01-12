@@ -26,7 +26,7 @@ pipeline {
                         yarn install
 
                         echo ---[ JS Unit Testing via Jest ]---
-                        mkdir sqlite_for_non_docker_dev
+                        mkdir -p sqlite_for_non_docker_dev
                         export SQLITE_DB_LOCATION="$(pwd)/sqlite_for_non_docker_dev/todo.db"
                         yarn test
                     '''
