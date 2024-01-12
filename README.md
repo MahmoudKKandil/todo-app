@@ -23,6 +23,7 @@ To get the app working, clone the repo, then there are four options:
 4.  Local JS development without Docker by doing:
     -   Install Node v12.22.12 (NPM v6.14.16) -- If using NVM: `$ nvm install lts/erbium`
     -   Install Yarn v1.22.21: `$ npm install --global yarn`
+    -   Have Yarn install the app dependencies: `$ yarn install`
     -   Create a local folder to be used for SQLite: `$ mkdir sqlite_for_non_docker_dev`
     -   Add that folder to your OS env vars: `$ export SQLITE_DB_LOCATION="$(pwd)/sqlite_for_non_docker_dev/todo.db"`
     -   Run the Jest (JS) unit tests to ensure everything passes: `$ yarn test`
