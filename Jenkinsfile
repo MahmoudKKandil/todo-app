@@ -18,7 +18,7 @@ pipeline {
         stage('Build & Test') {
             steps {
                 nodejs('NodeJS-v12-with-Yarn-v1') {
-                    sh '''
+                    sh """
                         echo ---[ Versions of Yarn, Node.js, and related dependencies. ]---
                         yarn versions
 
@@ -27,7 +27,7 @@ pipeline {
 
                         echo ---[ JS Unit Testing via Jest ]---
                         yarn test
-                    '''
+                    """
                 }
             }
         }
