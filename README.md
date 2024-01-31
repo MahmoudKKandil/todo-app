@@ -1,4 +1,4 @@
-Simple 'To-Do' app that uses Node.js, React, Jest unit tests, and SQLite / MySQL
+Simple 'To-Do' app that uses Node.js, React, Jest unit tests, and MySQL (v5.7) or SQLite
 
 Important: Do NOT use for production purposes! junktext is NOT maintaining this app for security or feature enhancements. However, the app code is useful for testing out CI/CD pipelines and for demonstrating if various codebase security scanning tools are working (since the Node/NPM/Yarn versions and the app dependencies are intentionally NOT being upgraded for this reason).
 
@@ -37,7 +37,36 @@ Also, if you want to create a new dev-specific Docker image, then do the followi
 
 `docker image build -t DOCKERID/getting-started:dev-latest -t DOCKERID/getting-started:dev-#.#.# -f Dockerfile-dev .`
 
-Finally, if you want a great explanation of YAML files and Docker's specific syntax with YAML, look at:
+FYI: Uf you want a great explanation of YAML files and Docker's specific syntax with YAML, look at:
 
 -   YAML_File_Example.yaml
 -   compose-dev-from-pub-imgs.yaml
+
+---
+
+To spin-up an entire Kubernetes cluster on AWS (EKS) with Terraform / OpenTofu, which uses 3 managed nodes across different AWS availability zones (AZs) as well as creates an MySQL v5.7 container for central storage for the "To-Do App" items, then do the following:
+(Tested with: Terraform CLI v1.7.1 [Linux] on Kubernetes v1.29 [EKS])
+(Note: We're not using RDS as we want to use the ancient MySQL v5.7, which has almost/has reached EOL on RDS.)
+
+1. Initialize Terraform to download the providers and modules:
+   `$ cd ./Kubernetes/cluster/1-provision-eks-cluster-with-terraform`
+   `$ terraform init`
+
+2. Review what Terraform will do (defaults to using AWS Region: `us-east-1` [N. Virginia]):
+   `$ terraform plan`
+
+3. If it all looks good to you, then (which will cost you money at standard EKS rates):
+   `$ terraform apply -auto-approve`
+
+4. Configure `kubectl` to be able to administer the newly-created K8s cluster
+   and set it as the default K8s context:
+
+    ```
+    $ aws eks --region $(terraform output -raw region) update-kubeconfig \
+    --name $(terraform output -raw cluster_name)
+
+    # To confirm the K8s context and to get the cluster connection details:
+    $ kubectl config current-context
+
+    $ kubectl cluster-info
+    ```
