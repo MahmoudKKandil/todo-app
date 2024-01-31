@@ -2,8 +2,19 @@ apiVersion: v1
 entries:
   todo-app:
   - apiVersion: v2
+    appVersion: 1.0.5
+    created: "2024-01-31T16:56:01.166631253-05:00"
+    description: A web-based To-Do app to help you remember the things you need to
+      do!
+    digest: db4d48620e5bbb48b3f4b7c81d5a45e18f357720dd176f920cd529df02b6bdd3
+    name: todo-app
+    type: application
+    urls:
+    - todo-app-1.1.4.tgz
+    version: 1.1.4
+  - apiVersion: v2
     appVersion: 1.0.4
-    created: "2022-06-03T15:00:49.301356462-04:00"
+    created: "2024-01-31T16:56:01.165312391-05:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 265ab8f6dc165dd6cef25a33d860714dccf64ad7bb61885873bf6bfc7372bf5f
@@ -14,7 +25,7 @@ entries:
     version: 1.1.3
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2022-06-03T15:00:49.300780372-04:00"
+    created: "2024-01-31T16:56:01.164865511-05:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 4bd6a78d1f753ab3b7efef9c594e6826d0712a18dec9642f82d992dae61aa97a
@@ -25,7 +36,7 @@ entries:
     version: 1.1.2
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2022-06-03T15:00:49.300215237-04:00"
+    created: "2024-01-31T16:56:01.16442397-05:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 41a4216ebfafdee9d16b4a2dd8206528c92e7421f2186710b15e97e2982f7a3b
@@ -36,7 +47,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2022-06-03T15:00:49.299608161-04:00"
+    created: "2024-01-31T16:56:01.163973693-05:00"
     description: A Helm chart for Kubernetes with Docker's To-Do App (modifications
       by junktext).
     digest: f6b6dca9266869566232f5aff50dce93234cc978ba121eb6852bc296212d116d
@@ -47,7 +58,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2022-06-03T15:00:49.299062219-04:00"
+    created: "2024-01-31T16:56:01.163519779-05:00"
     description: A Helm chart for Kubernetes with Docker's To-Do App (modifications
       by junktext).
     digest: 05642da11e8fd811f1dd7a15a5ad945de2066880369707afe9b6582ce60d2e14
@@ -56,4 +67,4 @@ entries:
     urls:
     - todo-app-1.0.0.tgz
     version: 1.0.0
-generated: "2022-06-03T15:00:49.298505768-04:00"
+generated: "2024-01-31T16:56:01.163040785-05:00"
