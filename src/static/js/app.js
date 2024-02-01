@@ -3,7 +3,7 @@ function App() {
     return (
         <div>
             <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                To-Do App (Modified by junktext : v1.0.5)
+                To-Do App (Modified by junktext : v1.0.6)
             </p>
             <Container>
                 <Row>

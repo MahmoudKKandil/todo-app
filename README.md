@@ -33,6 +33,10 @@ Then, open up a web browser and navigate to: http://localhost:3000/
 
 Tip: When in Docker Compose dev-mode, you must specify the `-f compose-dev.yaml` for every Docker Compose command.
 
+To build a new production (non-dev) Docker image, do:
+
+`sudo docker image build -t DOCKERID/getting-started:latest -t DOCKERID/getting-started:1.0.5 -f Dockerfile .`
+
 Also, if you want to create a new dev-specific Docker image, then do the following, but replace DOCKERHUBACCOUNT with your own Docker Hub account and replace the #.#.# with the appropriate semver:
 
 `docker image build -t DOCKERID/getting-started:dev-latest -t DOCKERID/getting-started:dev-#.#.# -f Dockerfile-dev .`
@@ -44,9 +48,8 @@ FYI: Uf you want a great explanation of YAML files and Docker's specific syntax 
 
 ---
 
-To spin-up an entire Kubernetes cluster on AWS (EKS) with Terraform / OpenTofu, which uses 3 managed nodes across different AWS availability zones (AZs) as well as creates an MySQL v5.7 container for central storage for the "To-Do App" items, then do the following:
+To spin-up an entire Kubernetes cluster on AWS (EKS) with Terraform / OpenTofu, which uses 3 managed nodes across different AWS availability zones (AZs), then do the following. However, presently having more than 1 node is just for effect as the central DB by default is just SQLite for the "To-Do App" items. Though, you may configure the app to use a MySQL v5.7 server (which you cannot rely on using RDS since AWS has that on an EOL timeline which may have already passed by the time that you read this text).
 (Tested with: Terraform CLI v1.7.1 [Linux] on Kubernetes v1.29 [EKS])
-(Note: We're not using RDS as we want to use the ancient MySQL v5.7, which has almost/has reached EOL on RDS.)
 
 1. Initialize Terraform to download the providers and modules:
    `$ cd ./Kubernetes/cluster/1-provision-eks-cluster-with-terraform`
