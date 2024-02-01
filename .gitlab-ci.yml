@@ -15,8 +15,8 @@ build-job:
   stage: build
   image: node:erbium
   script:
-    - echo "Current directory: $(pwd)"
-    - echo "NPM version: $(npm --version)"
-    - npm install --global yarn
-    - echo "Yarn version: $(yarn --version)"
-    - echo 'Hello world'
+    - 'echo "Current directory: $(pwd)"'
+    - 'echo "NPM version: $(npm --version)"'
+    - 'npm install --global yarn'
+    - 'echo "Yarn version: $(yarn --version)"'
+    - 'echo "Hello world"'
