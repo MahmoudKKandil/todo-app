@@ -14,12 +14,11 @@ build-job:
     # The backend uses Yarn, which both builds and does unit testing.
     stage: build
     image: node:erbium
-    before_script:
+    script:
         - echo "Current directory: $(pwd)"
         - echo "NPM version: $(npm --version)"
         - npm install --global yarn
         - echo "Yarn version: $(yarn --version)"
-    script:
         - echo 'Hello world'
         #- echo 'Installing the app dependencies via Yarn...'
         #- yarn install --production
