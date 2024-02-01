@@ -1,24 +1,22 @@
 # GitLab SAST (Static Application Security Testing) via CI/CD
 # SAST scanning can be DISABLED by commenting it out.
 include:
-    - template: Jobs/SAST.gitlab-ci.yml
+  - template: Jobs/SAST.gitlab-ci.yml
 
 # List of stages for jobs, and their order of execution
 # Note: The "- test" stage is needed for GitLab's SAST. Which, we don't need it fully defined below.
 stages:
-    - build
-    #- test
-    #- deploy
+  - build
+  #- test
+  #- deploy
 
 build-job:
-    # The backend uses Yarn, which both builds and does unit testing.
-    stage: build
-    image: node:erbium
-    script:
-        - echo "Current directory: $(pwd)"
-        - echo "NPM version: $(npm --version)"
-        - npm install --global yarn
-        - echo "Yarn version: $(yarn --version)"
-        - echo 'Hello world'
-        #- echo 'Installing the app dependencies via Yarn...'
-        #- yarn install --production
+  # The backend uses Yarn, which both builds and does unit testing.
+  stage: build
+  image: node:erbium
+  script:
+    - echo "Current directory: $(pwd)"
+    - echo "NPM version: $(npm --version)"
+    - npm install --global yarn
+    - echo "Yarn version: $(yarn --version)"
+    - echo 'Hello world'
