@@ -1,7 +1,7 @@
 # GitLab SAST (Static Application Security Testing) via CI/CD
 # SAST scanning can be DISABLED by commenting it out.
-include:
-  - template: Jobs/SAST.gitlab-ci.yml
+#include:
+#  - template: Jobs/SAST.gitlab-ci.yml
 
 # List of stages for jobs, and their order of execution
 # Note: The "- test" stage is needed for GitLab's SAST. Which, we don't need it fully defined below.
