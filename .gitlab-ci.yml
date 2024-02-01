@@ -17,6 +17,6 @@ build-job:
   script:
     - 'echo "Current directory: $(pwd)"'
     - 'echo "NPM version: $(npm --version)"'
-    - 'npm install --global yarn'
+    #- 'npm install --global yarn'
     - 'echo "Yarn version: $(yarn --version)"'
     - 'echo "Hello world"'
