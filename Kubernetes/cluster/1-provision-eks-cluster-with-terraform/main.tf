@@ -19,6 +19,7 @@ data "aws_availability_zones" "available" {
 locals {
   #cluster_name = "education-eks-${random_string.suffix.result}"
   cluster_name = "todo-app-eks-${random_string.suffix.result}"
+  desired_size = 1 # How many EKS managed nodes are desired.
 }
 
 resource "random_string" "suffix" {
@@ -76,25 +77,51 @@ module "eks" {
     one = {
       name = "node-group-1"
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3a.medium"] # Max Pods: 17
 
-      min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      min_size = 1
+      max_size = 3
+      #desired_size = 2
+      desired_size = local.desired_size
     }
 
+    /*
+    # Example of how to create another EKS node group with a different size.
     two = {
       name = "node-group-2"
 
-      instance_types = ["t3.small"]
+      instance_types = ["t3.large"]
 
       min_size     = 1
       max_size     = 2
       desired_size = 1
     }
+    */
   }
 }
 
+# Allows us to use TF to modify the `desired_size` of the EKS managed node group later.
+# Normally, we can't do this because of how EKS managed node groups are typically scaled in/out which
+# uses non-TF ways of doing so.
+# https://github.com/bryantbiggs/eks-desired-size-hack
+# https://github.com/terraform-aws-modules/terraform-aws-eks/issues/1879
+resource "null_resource" "update_desired_size" {
+  triggers = {
+    desired_size = local.desired_size
+  }
+
+  provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
+
+    # Note: this requires the awscli to be installed locally where Terraform is executed
+    command = <<-EOT
+      aws eks update-nodegroup-config \
+        --cluster-name ${module.eks.cluster_name} \
+        --nodegroup-name ${element(split(":", module.eks.eks_managed_node_groups["one"].node_group_id), 1)} \
+        --scaling-config desiredSize=${local.desired_size}
+    EOT
+  }
+}
 
 # https://aws.amazon.com/blogs/containers/amazon-ebs-csi-driver-is-now-generally-available-in-amazon-eks-add-ons/ 
 data "aws_iam_policy" "ebs_csi_policy" {
