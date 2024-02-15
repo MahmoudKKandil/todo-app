@@ -29,7 +29,7 @@ build-job:
     # 1) Look for files not ignored by Prettier.
     # 2) Strip off the ! symbol.
     # 3) Repeats the command on every file listed: $ yarn prettier -c ./src/someFile.js
-    - "grep '!/' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c .{}'"
+    - "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c ./{}'"
     # Follows the README in a similar way for non-Docker Compose dev as there is a Jest unit test
     # that will create an SQLite database for this test: /spec/persistence/sqlite.spec.js
     - 'mkdir sqlite_for_ci_unit_tests'

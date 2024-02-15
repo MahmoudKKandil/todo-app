@@ -1,4 +1,4 @@
-# @}-;--- Exclude everything except for specific files prefixed with !
+# @}-;--- Exclude everything except for specific files prefixed with an exclamation point.
 # Note: We are listing out each file as this .prettierignore file is also used
 # for CI checks (via Bash) that works with GitLab, Jenkins, and the like.
 # The individual file approach seems reasonable as this codebase is frozen
@@ -6,14 +6,33 @@
 # this .prettierignore to consistently set code formatting rules at all times
 # on the files we care about both for local dev (IDEs) and CI platforms.
 /*
-!/src/index.js
-!/src/persistence/index.js
-!/src/persistence/mysql.js
-!/src/persistence/sqlite.js
-!/src/routes/addItem.js
-!/src/routes/deleteItem.js
-!/src/routes/getItems.js
-!/src/routes/updateItem.js
-!/src/static/index.html
-!/src/static/css/styles.css
-!/src/static/js/app.js
+
+# JSON Files
+!package.json
+
+# YAML Files
+!.gitlab-ci.yml
+!compose-dev-from-pub-imgs.yaml
+!compose-dev.yaml
+!compose.yaml
+!YAML_File_Example.yaml
+
+# Jest unit tests
+!spec/persistence/sqlite.spec.js
+!spec/routes/addItem.spec.js
+!spec/routes/deleteItem.spec.js
+!spec/routes/getItems.spec.js
+!spec/routes/updateItem.spec.js
+
+# Source Code Files
+!src/index.js
+!src/persistence/index.js
+!src/persistence/mysql.js
+!src/persistence/sqlite.js
+!src/routes/addItem.js
+!src/routes/deleteItem.js
+!src/routes/getItems.js
+!src/routes/updateItem.js
+!src/static/index.html
+!src/static/css/styles.css
+!src/static/js/app.js
