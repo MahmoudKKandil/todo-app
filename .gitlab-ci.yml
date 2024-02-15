@@ -15,15 +15,20 @@ stages:
 
 build-job:
   # Uses the older `erbium` Node.js on purpose.
-  # Yarn v1 is already included in the image, which we need as Yarn both builds and does unit testing.
   stage: build
   image: node:erbium
   script:
     - 'echo "Current directory: $(pwd)"'
     - 'echo "NPM version: $(npm --version)"'
+    # Unnecessary as the Node.js team already pre-installed Yarn v1.
     #- 'npm install --global yarn'
     - 'echo "Yarn version: $(yarn --version)"'
-    - 'echo "Hello world"'
+    # Ensures every file tracked by Prettier indeed has the correct code formatting syntax.
+    # Bash essentially will:
+    # 1) Look for files not ignored by Prettier.
+    # 2) Strip off the ! symbol.
+    # 3) Repeats the command on every file listed: $ yarn prettier -c ./src/someFile.js
+    - "grep '!/' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c .{}'"
 #
 # To login to Docker Hub:
 #sudo echo -n $(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --profile gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"}) | sudo docker login -u junktext --password-stdin
