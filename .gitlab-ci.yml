@@ -25,7 +25,9 @@ build-job:
     - 'echo "Yarn version: $(yarn --version)"'
     - 'yarn install'
     # Ensures every file tracked by Prettier indeed has the correct code formatting syntax.
-    # Bash essentially will:
+    # For a real example to prove that Prettier will halt the CI build if it detects formatting
+    # violations, see: https://gitlab.com/junktext/example-docker-getting-started/-/pipelines/1178600088
+    # The Bash command below will:
     # 1) Look for files not ignored by Prettier.
     # 2) Strip off the ! symbol.
     # 3) Repeats the command on every file listed: $ yarn prettier -c ./src/someFile.js

@@ -35,7 +35,7 @@ services:
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "${DB_PASS}" # This is grabbed via the .env file or OS env vars!
+      MYSQL_ROOT_PASSWORD: '${DB_PASS}' # This is grabbed via the .env file or OS env vars!
       MYSQL_DATABASE: todos
 
 # Declares which storage volumes we need.

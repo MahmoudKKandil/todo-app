@@ -8,7 +8,7 @@ services:
     environment:
       MYSQL_HOST: database
       MYSQL_USER: root
-      MYSQL_PASSWORD: "${DB_PASS}"
+      MYSQL_PASSWORD: '${DB_PASS}'
       MYSQL_DB: todos
 
   database:
@@ -16,7 +16,7 @@ services:
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "${DB_PASS}"
+      MYSQL_ROOT_PASSWORD: '${DB_PASS}'
       MYSQL_DATABASE: todos
 
 volumes:
