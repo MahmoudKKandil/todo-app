@@ -30,6 +30,12 @@ build-job:
     # 2) Strip off the ! symbol.
     # 3) Repeats the command on every file listed: $ yarn prettier -c ./src/someFile.js
     - "grep '!/' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c .{}'"
+    # Follows the README in a similar way for non-Docker Compose dev as there is a Jest unit test
+    # that will create an SQLite database for this test: /spec/persistence/sqlite.spec.js
+    - 'mkdir sqlite_for_ci_unit_tests'
+    - 'export SQLITE_DB_LOCATION="$(pwd)/sqlite_for_ci_unit_tests/todo.db"'
+    # Runs the Jest unit tests:
+    - 'yarn test'
 #
 # To login to Docker Hub:
 #sudo echo -n $(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --profile gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"}) | sudo docker login -u junktext --password-stdin
