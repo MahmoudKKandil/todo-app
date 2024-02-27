@@ -70,7 +70,7 @@ jest-unit-tests:
     - 'export SQLITE_DB_LOCATION="$(pwd)/sqlite_for_ci_unit_tests/todo.db"'
     # Runs the Jest unit tests:
     - 'yarn test'
-# Job
+# Job:
 # docker-build-and-publish:
 #   stage: containerize
 #   image: docker:cli
