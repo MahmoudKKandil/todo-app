@@ -1,29 +1,54 @@
 # GitLab SAST (Static Application Security Testing) via CI/CD
-# SAST scanning can be DISABLED by commenting it out.
+# SAST scanning can be disabled by commenting it out (and then we could comment-out the `test` stage).
 include:
   - template: Jobs/SAST.gitlab-ci.yml
 
 variables:
+  # Have SAST to scan K8s manifests and Helm charts.
   SCAN_KUBERNETES_MANIFESTS: 'true'
 
 # List of stages for jobs, and their order of execution
-# Note: The "- test" stage is needed for GitLab's SAST. Which, we don't need it fully defined below.
 stages:
   - build
-  - test
+  - test # Needed for GitLab's SAST, which we don't need to define fully.
+  #- containerize
   #- deploy
 
-build-job:
-  # Uses the older `erbium` Node.js on purpose.
-  stage: build
-  image: node:erbium
-  script:
+# Hidden GitLab CI job for templating purposes via `extends` later.
+# https://docs.gitlab.com/ee/ci/jobs/index.html#hide-jobs
+# https://docs.gitlab.com/ee/ci/yaml/index.html#extends
+.template-yarn-cache:
+  # The same image is used in the `build` stage (DRY), then overridden in later stages.
+  image: node:erbium # Container: Uses the older `erbium` Node.js on purpose (e.g., to stress test CI security scans).
+
+  # Efficient CI dependency caching with Yarn's Offline Mirror feature & using the lock file as the cache key
+  # https://docs.gitlab.com/ee/ci/caching/index.html#compute-the-cache-key-from-the-lock-file
+  cache:
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - .yarn-cache/
+
+  # Using `before_script` instead of `script` to be more readable, potentially more DRY, and to avoid other oddities between jobs.
+  before_script:
     - 'echo "Current directory: $(pwd)"'
     - 'echo "NPM version: $(npm --version)"'
     # Unnecessary as the Node.js team already pre-installed Yarn v1.
     #- 'npm install --global yarn'
     - 'echo "Yarn version: $(yarn --version)"'
-    - 'yarn install'
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
+
+# Job: Code formatting verified with Prettier
+# Setting this as the 1st job, but runs in parallel with the next job, for fast fail CI optimization.
+# Note: We want to use the specific Prettier version specified via the `package.json` (Yarn) for consistency purposes.
+check-code-formatting:
+  stage: build
+  extends: .template-yarn-cache
+
+  script:
     # Ensures every file tracked by Prettier indeed has the correct code formatting syntax.
     # For a real example to prove that Prettier will halt the CI build if it detects formatting
     # violations, see: https://gitlab.com/junktext/example-docker-getting-started/-/pipelines/1178600088
@@ -32,12 +57,27 @@ build-job:
     # 2) Strip off the ! symbol.
     # 3) Repeats the command on every file listed: $ yarn prettier -c ./src/someFile.js
     - "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c ./{}'"
+
+# Job: Performs unit testing with Jest
+jest-unit-tests:
+  stage: build
+  extends: .template-yarn-cache
+
+  script:
     # Follows the README in a similar way for non-Docker Compose dev as there is a Jest unit test
     # that will create an SQLite database for this test: /spec/persistence/sqlite.spec.js
     - 'mkdir sqlite_for_ci_unit_tests'
     - 'export SQLITE_DB_LOCATION="$(pwd)/sqlite_for_ci_unit_tests/todo.db"'
     # Runs the Jest unit tests:
     - 'yarn test'
+# Job
+# docker-build-and-publish:
+#   stage: containerize
+#   image: docker:cli
+#   services:
+#     - docker:dind
+#   before_script:
+# TODO: Grab token from AWS Secrets Manager for Docker Hub, then login to something like below in GitLab.
 #
 # To login to Docker Hub:
 #sudo echo -n $(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --profile gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"}) | sudo docker login -u junktext --password-stdin
