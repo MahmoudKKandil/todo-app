@@ -3,8 +3,11 @@ services:
     image: junktext/getting-started:dev-latest
     ports:
       - 3000:3000
-    volumes:
-      - ./:/app
+    # Only enable `volumes` if you are doing local dev & have done `$ yarn install` beforehand,
+    # otherwise the `web` container will crash as it won't load up 'express' from your non-existent
+    # 'node_modules' folder.
+    #volumes:
+    #  - ./:/app
     environment:
       MYSQL_HOST: database
       MYSQL_USER: root
