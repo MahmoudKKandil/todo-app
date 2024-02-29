@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "prettify": "prettier -l --write \"**/*.js\"",
+    "prettify": "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier --write ./{}'",
     "test": "jest",
     "dev": "nodemon src/index.js"
   },

@@ -5,7 +5,7 @@ services:
       - 3000:3000
     # Only enable `volumes` if you are doing local dev & have done `$ yarn install` beforehand,
     # otherwise the `web` container will crash as it won't load up 'express' from your non-existent
-    # 'node_modules' folder. 
+    # 'node_modules' folder.
     #volumes:
     #  - ./:/app
     environment:
