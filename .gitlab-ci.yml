@@ -11,6 +11,7 @@ variables:
 stages:
   - build
   - test # Needed for GitLab's SAST, which we don't need to define fully.
+  - dockerhub-login
   #- containerize
   #- deploy
 
@@ -70,8 +71,9 @@ jest-unit-tests:
     - 'export SQLITE_DB_LOCATION="$(pwd)/sqlite_for_ci_unit_tests/todo.db"'
     # Runs the Jest unit tests:
     - 'yarn test'
+#
 # Job:
-# docker-build-and-publish:
+#docker-build-and-publish:
 #   stage: containerize
 #   image: docker:cli
 #   services:
@@ -79,6 +81,33 @@ jest-unit-tests:
 #   before_script:
 # TODO: Grab token from AWS Secrets Manager for Docker Hub, then login to something like below in GitLab.
 #
-# To login to Docker Hub:
-#sudo echo -n $(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --profile gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"}) | sudo docker login -u junktext --password-stdin
+#
+# Job:
+aws-secrets-manager:
+  stage: dockerhub-login
+  image: junktext/alpine-aws-cli:alpine3.19.1_aws-cli2.13.25
+  dependencies: []
+  script:
+    # To login to Docker Hub:
+    #sudo echo -n $(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --profile gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"}) | sudo docker login -u junktext --password-stdin
+    - 'DTOKEN="$(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"})"'
+    - 'DAUTH="$(echo -n junktext:$DTOKEN | base64)"'
+    - 'whoami'
+  # artifacts:
+  #   paths:
+  #     - dockerhub-token
+  #   expire_in: 60 seconds
+# Job:
+# containerize-and-publish-img:
+#   stage: containerize
+#   image:
+#     name: gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   script:
+#     - /kaniko/executor
+#       --context "${CI_PROJECT_DIR}"
+#       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+#       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+#   rules:
+#     - if: $CI_COMMIT_TAG
 
