@@ -6,7 +6,9 @@
   "scripts": {
     "prettify": "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier --write ./{}'",
     "test": "jest",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "preversion": "yarn prettify && yarn test",
+    "postversion": "git push -o ci.skip && git push --tags"
   },
   "dependencies": {
     "express": "^4.17.1",
