@@ -88,8 +88,6 @@ aws-secrets-manager:
     - 'DTOKEN="$(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"})"'
     - 'DAUTH="$(echo -n junktext:$DTOKEN | base64)"'
     # We are creating the recommended config file for Kaniko (that we rename later in the next job).
-    - 'pwd'
-    - 'ls -alFh'
     - 'echo -e "{\n  \"auths\": {\n    \"https://index.docker.io/v1/\": {\n      \"auth\": \"$DAUTH\"\n    }\n  }\n}\n" > kaniko-config.json'
   artifacts:
     paths:
@@ -109,8 +107,6 @@ containerize-and-publish-img:
   script:
     # Renames `kaniko-config.json` from the previous job to `config.json` inside of /kaniko/.docker
     # The `config.json` allows us to login to Docker Hub through Kaniko.
-    - 'pwd'
-    - 'ls -alFh'
     - 'mkdir -p /kaniko/.docker/'
     - 'cp kaniko-config.json /kaniko/.docker/config.json'
     - /kaniko/executor
