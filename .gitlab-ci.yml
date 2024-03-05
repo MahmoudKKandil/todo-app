@@ -82,7 +82,7 @@ aws-secrets-manager:
   script:
     # To login to Docker Hub:
     #sudo echo -n $(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --profile gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"}) | sudo docker login -u junktext --password-stdin
-    - 'echo AWS_DEFAULT_REGION is: "$AWS_DEFAULT_REGION"'
+    - 'echo AWS_DEFAULT_REGION is: "$GITLAB_UI_AWS_DEFAULT_REGION"'
     - 'DTOKEN="$(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"})"'
     - 'DAUTH="$(echo -n junktext:$DTOKEN | base64)"'
     - 'mkdir -p /kaniko/.docker/'
