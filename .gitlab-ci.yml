@@ -78,7 +78,7 @@ aws-secrets-manager:
   image: junktext/alpine-aws-cli:alpine3.19.1_aws-cli2.13.25
   dependencies: []
   variables:
-    AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+    AWS_DEFAULT_REGION: $GITLAB_UI_AWS_DEFAULT_REGION
   script:
     # To login to Docker Hub:
     #sudo echo -n $(aws secretsmanager get-secret-value --secret-id docker-hub-token-for-gitlab-cicd --profile gitlab-cicd --query SecretString --output text | cut -d: -f2 | tr -d \"}) | sudo docker login -u junktext --password-stdin
