@@ -8,7 +8,7 @@
     "test": "jest",
     "dev": "nodemon src/index.js",
     "preversion": "yarn prettify && yarn test",
-    "postversion": "git push --atomic origin master $(echo $(yarn version) | awk '{print $7}')"
+    "postversion": "git push; git push $(echo $(yarn version) | awk '{print $7}')"
   },
   "dependencies": {
     "express": "^4.17.1",
