@@ -5,10 +5,11 @@
   "license": "MIT",
   "scripts": {
     "prettify": "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier --write ./{}'",
+    "prettier_check": "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c ./{}'",
     "test": "jest",
     "dev": "nodemon src/index.js",
-    "preversion": "yarn prettify && yarn test",
-    "postversion": "git push; git push $(echo $(yarn version) | awk '{print $7}')"
+    "preversion": "yarn prettier_check && yarn test",
+    "postversion": "git tag -a $(echo $(yarn version) | awk '{print $7}') $(git log -1 --pretty=format:'%H'); git push --tags"
   },
   "dependencies": {
     "express": "^4.17.1",
