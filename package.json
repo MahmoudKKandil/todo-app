@@ -9,7 +9,7 @@
     "test": "jest",
     "dev": "nodemon src/index.js",
     "preversion": "yarn prettier_check && yarn test",
-    "postversion": "git tag -a $(echo $(yarn version) | awk '{print $7}') $(git log -1 --pretty=format:'%H'); git push --tags"
+    "postversion": "YARN_REPO_VER=\"$(echo $(yarn version) | awk '{print $7}')\"; git tag -a $YARN_REPO_VER $(git log -1 --pretty=format:'%H') -m \"Version: $YARN_REPO_VER\"; git push --tags"
   },
   "dependencies": {
     "express": "^4.17.1",
