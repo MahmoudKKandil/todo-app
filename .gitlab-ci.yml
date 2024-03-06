@@ -62,9 +62,9 @@ check-code-formatting:
     # 3) Repeats the command on every file listed: $ yarn prettier -c ./src/someFile.js
     - "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c ./{}'"
 
-    rules:
-      - if: $CI_COMMIT_TAG
-        when: never
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
 
 # Job: Performs unit testing with Jest
 jest-unit-tests:
@@ -79,9 +79,9 @@ jest-unit-tests:
     # Runs the Jest unit tests:
     - 'yarn test'
 
-    rules:
-      - if: $CI_COMMIT_TAG
-        when: never
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
 
 # Job:
 aws-secrets-manager:
