@@ -15,6 +15,7 @@ build-on-commit:
   trigger:
     include:
       - local: '.gitlab-ci-1-build.yml'
+    strategy: depend
 
 # Job: Test when Git tag is NOT present.
 test-on-commit:
@@ -27,6 +28,7 @@ test-on-commit:
   trigger:
     include:
       - local: '.gitlab-ci-2-test.yml'
+    strategy: depend
 
 # Job: Deploy when a Git tag is ACTUALLY present.
 deploy-with-git-tag:
@@ -37,3 +39,4 @@ deploy-with-git-tag:
   trigger:
     include:
       - local: '.gitlab-ci-3-deploy.yml'
+    strategy: depend
