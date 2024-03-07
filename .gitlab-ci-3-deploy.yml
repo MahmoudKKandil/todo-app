@@ -2,7 +2,7 @@
 stages:
   - dockerhub-login
   - containerize
-  #- deploy
+  #- update-helm-chart
 
 # Job:
 aws-secrets-manager:

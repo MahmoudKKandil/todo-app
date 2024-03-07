@@ -1,6 +1,6 @@
 {
   "name": "101-app",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "jest",
     "dev": "nodemon src/index.js",
     "preversion": "yarn prettier_check && yarn test",
-    "postversion": "YARN_REPO_VER=\"$(echo $(yarn version) | awk '{print $7}')\"; git tag -a $YARN_REPO_VER $(git log -1 --pretty=format:'%H') -m \"Version: $YARN_REPO_VER\"; git push --tags"
+    "postversion": "git push --atomic origin master $(echo $(yarn version) | awk '{print $7}')"
   },
   "dependencies": {
     "express": "^4.17.1",

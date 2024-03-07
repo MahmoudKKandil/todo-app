@@ -1,0 +1,12 @@
+# GitLab SAST (Static Application Security Testing) via CI/CD
+# SAST scanning can be disabled by commenting it out (and then we could comment-out the `test` stage).
+include:
+  - template: Jobs/SAST.gitlab-ci.yml
+
+variables:
+  # Have SAST to scan K8s manifests and Helm charts.
+  SCAN_KUBERNETES_MANIFESTS: 'true'
+
+# List of stages for jobs, and their order of execution
+stages:
+  - test # Needed for GitLab's SAST, which we don't need to define fully.
