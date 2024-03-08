@@ -12,7 +12,6 @@
 
 # YAML Files
 #.gitlab-ci.yml
-!compose-dev-from-pub-imgs.yaml
 !compose-dev.yaml
 !compose.yaml
 !YAML_File_Example.yaml
