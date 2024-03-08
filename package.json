@@ -9,7 +9,7 @@
     "test": "jest",
     "dev": "nodemon src/index.js",
     "preversion": "yarn prettier_check && yarn test",
-    "postversion": "git push --atomic origin master $(echo $(yarn version) | awk '{print $7}')"
+    "postversion": "./.version_update.sh"
   },
   "dependencies": {
     "express": "^4.17.1",

@@ -3,7 +3,11 @@ function App() {
     return (
         <div>
             <p style={{ textAlign: 'center', fontWeight: 'bold' }}>
-                To-Do App (Modified by junktext : v1.0.6)
+                To-Do App
+                <br style={{ fontWeight: 'normal' }}>
+                    {/* The version number is updated via: $ yarn version */}
+                    Modified by junktext (v1.0.21)
+                </br>
             </p>
             <Container>
                 <Row>
