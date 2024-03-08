@@ -27,6 +27,17 @@
         <div id="root"></div>
         <script src="js/react.production.min.js"></script>
         <script src="js/react-dom.production.min.js"></script>
+        <!-- Note by junktext: If you attempt to use the React DOM v16.8.6 dev version,
+             it has some sort of bug that results in a crash that says:
+                Uncaught Invariant Violation: It is not supported to run the profiling version of a renderer (for example, `react-dom/profiling`) without also replacing the `scheduler/tracing` module with `scheduler/tracing-profiling`. Your bundler might have a setting for aliasing both modules. Learn more at http://fb.me/react-profiling
+                react-dom.development.js:49:15
+
+            Which then causes the React DOM itself to fail in our `app.js` file...
+                Uncaught ReferenceError: ReactDOM is not defined
+                app.js:190
+
+            So, unfortuantely, if you mess with the React JSX code and have problems, you cannot easily get true error messages due to: https://react.dev/errors/137 -->
+        <!-- <script src="js/react-dom.development.js"></script> -->
         <script src="js/react-bootstrap.js"></script>
         <script src="js/babel.min.js"></script>
         <script type="text/babel" src="js/app.js"></script>

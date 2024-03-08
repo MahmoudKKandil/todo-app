@@ -1,26 +1,48 @@
+# Defines the microservices (containers) that will start.
+# Overall, we'll end up with 2 microservices: web (To-Do [React/Node]) & mysql
 services:
+  # The name of our 1st service. We can call it whatever we want.
+  # In this case, we'll simply go with: web
+  # Also, the service name automatically becomes a network alias.
+  # Thus, our "web" represents the To-Do app (React/Node) container.
   web:
-    image: junktext/getting-started:dev-latest
+    # The Docker container image to use. Same as the FROM in a Dockerfile.
+    image: node:12-alpine
+    # Overrides/runs the default CMD specified in the image's Dockerfile.
+    command: sh -c "yarn install && yarn run dev"
+    # Exposes the ports of the host:container
     ports:
       - 3000:3000
-    # Only enable `volumes` if you are doing local dev & have done `$ yarn install` beforehand,
-    # otherwise the `web` container will crash as it won't load up 'express' from your non-existent
+    # Overrides the image's WORKDIR directive in a Dockerfile. Also cmd arg: -w
+    working_dir: /app
+    # Maps the storage volumes from the host:container
+    #
+    # The `volumes` are set for local dev & only AFTER you have done `$ yarn install` beforehand!
+    # Otherwise the `web` container will crash as it won't load up 'express' from your non-existent
     # 'node_modules' folder.
-    #volumes:
-    #  - ./:/app
+    volumes:
+      # The ./ is the POSIX relative path. Replaces the need for "$(pwd):/app"
+      - ./:/app
+    # Defines the environment variables that will be used by the container.
     environment:
-      MYSQL_HOST: database
+      MYSQL_HOST: database # The 'database' is the reference to the other nearby container.
       MYSQL_USER: root
-      MYSQL_PASSWORD: '${DB_PASS}'
+      MYSQL_PASSWORD: secret
       MYSQL_DB: todos
 
+  # Our 2nd service! Again, we can name it whatever we want. This name becomes
+  # a Docker network alias, which we've already referred to, above, in the MYSQL_HOST.
+  # We don't need to specify port mappings as this service will not be directly accessible
+  # from the host OS, instead it will be used by the "web" service.
   database:
     image: mysql:5.7
     volumes:
       - todo-mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: '${DB_PASS}'
+      MYSQL_ROOT_PASSWORD: '${DB_PASS}' # This is grabbed via the .env file or OS env vars!
       MYSQL_DATABASE: todos
 
+# Declares which storage volumes we need.
 volumes:
+  # Using a null value means it will be a Docker Volume (not a Bind Mount) with defaults.
   todo-mysql-data:

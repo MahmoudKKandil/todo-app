@@ -35,7 +35,7 @@ Tip: When in Docker Compose dev-mode, you must specify the `-f compose-dev.yaml`
 
 To build a new production (non-dev) Docker image, do:
 
-`docker image build -t DOCKERID/getting-started:latest -t DOCKERID/getting-started:#.#.# -f Dockerfile .`
+`docker image build -t DOCKERID/getting-started:latest -t DOCKERID/getting-started:#.#.# .`
 
 Also, if you want to create a new dev-specific Docker image, then do the following, but replace DOCKERHUBACCOUNT with your own Docker Hub account and replace the #.#.# with the appropriate semver:
 
