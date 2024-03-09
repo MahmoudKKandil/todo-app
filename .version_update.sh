@@ -19,7 +19,7 @@ pub_ver_file='src/static/js/app.js'
 echo -e "\n@}-;--- Yarn has updated the app's version to $new_app_ver in file: package.json"
 echo "@}-;--- Updating the app's version as shown in the web frontend at: $pub_ver_file"
 
-# In the React code that gets shown to the browser, there is a line that says:
+# In the React code that gets shown to the browser, there is a line that says (with an example):
 #   Modified by junktext (v1.0.21)
 # So, the following will update that portion of text with the new version number as (v1.0.22):
 sed -i "s/(v[[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+)/(v$new_app_ver)/" $pub_ver_file
