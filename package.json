@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "prettify": "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier --write ./{}'",
-    "prettier_check": "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c ./{}'",
+    "prettify": "./.code_formatter.sh --write",
+    "prettier_check": "./.code_formatter.sh --check",
     "test": "jest",
     "dev": "nodemon src/index.js",
     "preversion": "yarn prettier_check && yarn test",

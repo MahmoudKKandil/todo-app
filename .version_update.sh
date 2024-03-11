@@ -2,10 +2,13 @@
 # Purpose: Update this app's version info in a coordinated way after
 #          performing: $ yarn version [--major | --minor | --patch]
 #
-# By: William Paul Liggett (https://junktext.com)
+# By:      William Paul Liggett (https://junktext.com)
 
 # For script debugging:
-set -x
+#set -x
+
+# Exit with a non-zero result if any command in this script fails.
+set -euo pipefail
 
 # Prerequisite: Ensure a file called `.yarnrc` exists in the main folder (above 'src/') with at least:
 #version-git-tag false

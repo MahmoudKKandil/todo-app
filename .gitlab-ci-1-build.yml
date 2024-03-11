@@ -19,6 +19,7 @@ stages:
 
   # Using `before_script` instead of `script` to be more readable, potentially more DRY, and to avoid other oddities between jobs.
   before_script:
+    - 'set -euo pipefail'
     - 'echo "Current directory: $(pwd)"'
     - 'echo "NPM version: $(npm --version)"'
     # Unnecessary as the Node.js team already pre-installed Yarn v1.
@@ -39,11 +40,7 @@ check-code-formatting:
     # Ensures every file tracked by Prettier indeed has the correct code formatting syntax.
     # For a real example to prove that Prettier will halt the CI build if it detects formatting
     # violations, see: https://gitlab.com/junktext/example-docker-getting-started/-/pipelines/1178600088
-    # The Bash command below will:
-    # 1) Look for files not ignored by Prettier.
-    # 2) Strip off the ! symbol.
-    # 3) Repeats the command on every file listed: $ yarn prettier -c ./src/someFile.js
-    - "grep '!' .prettierignore | cut --delimiter='!' -f2 | xargs -I {} bash -c 'yarn prettier -c ./{}'"
+    - "./.code_formatter.sh --check"
 
 # Job: Performs unit testing with Jest
 jest-unit-tests:
