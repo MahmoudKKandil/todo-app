@@ -28,7 +28,7 @@ echo "@}-;--- Updating the app's version as shown in the web frontend at: $pub_v
 # In the React code that gets shown to the browser, there is a line that says (with an example):
 #   Modified by junktext (v1.0.21)
 # So, the following will update that portion of text with the new version number as (v1.0.22):
-sed -i -E "s/(v[[:digit:]]+.[[:digit:]]+.[[:digit:]]+)/(v$new_app_ver)/" "$pub_ver_file"
+sed -i -E "s/v[[:digit:]]+.[[:digit:]]+.[[:digit:]]+/v$new_app_ver/" "$pub_ver_file"
 
 echo "@}-;--- Performing a Git commit and tag to save the changes."
 
