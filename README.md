@@ -17,8 +17,8 @@ Modifications by: William Paul Liggett of https://junktext.com
 
 To get the app working, clone the repo, then there are four options:
 
-1.  Docker Compose: Production Demo: `docker compose up -d`
-2.  Docker Compose: Development Env: `docker compose -f compose-dev.yaml up -d`
+1.  Docker Compose: Production Demo: `docker compose up -d --pull always`
+2.  Docker Compose: Development Env: `docker compose -f compose-dev.yaml up -d --pull always`
 3.  Kubernetes/Helm: https://artifacthub.io/packages/helm/junktext-direct/todo-app
 4.  Local JS development without Docker by doing:
     -   Install Node v12.22.12 (NPM v6.14.16) -- If using NVM: `$ nvm install lts/erbium`
