@@ -1,26 +1,31 @@
+# GitLab CI/CD build / test / deployment process:
+# -----------------------------------------------
 # The local-dev to production deployment workflow is as such:
 # 1) LOCAL DEV: Change some code, then git commit/push to 'master'. These trigger: 
 #     --> build-on-commit
 #     --> test-on-commit
 #
-# 2) When wanting to deploy to PRODUCTION (release to Docker Hub and Artifact Hub):
+# 2) When wanting to deploy to PRODUCTION [a.k.a. PROD] (release to Docker Hub and Artifact Hub):
 #    You need to manually run on LOCAL DEV: $ yarn version --patch (OR --minor OR --major)
 #    There is a script called `.version_update.sh` which properly changes all the semver for files
 #    and it creates a new Git tag with the new version number. The tag is what triggers:
 #     --> deploy-with-git-tag
 #
 # Note: If desired for fully automated CI/CD (local-dev-to-prod), another Branch Pipeline job could
-# be configured before the `deploy-with-git-tag` such that it could:
+# be configured before the `deploy-with-git-tag` such that it might:
 #  a. Run the `.version_update.sh` script (modified) so that no manual confirmation input is needed.
-#     The sanity check was to help prevent accidental releases to the world that we didn't intend.
-#     Especially if we accidentally used --minor instead of --patch for just a bugfix.
+#     Though, this sanity check was to help prevent accidental releases to the world, such as if we
+#     accidentally used --minor instead of --patch for just a bugfix. So, something to consider.
 #
 #  b. Probably modify that same script to handle --patch | --minor | --major SemVer somehow with like:
 #     $ git commit -m '[semver patch]'
-#     which then could kick-off the --patch form of SemVer.
+#     which then could kick-off the --patch form of SemVer (e.g., v1.0.0 --> v1.0.1)
 #
 #  c. After the above occurs in this hypothetical scenario, the `.version_update.sh` would create the
 #     Git tag and then trigger the `deploy-with-git-tag` job which would launch to PRODUCTION automatically.
+#
+#  Or... to simplify everything, you could stop using version numbers and do rolling release updates via like
+#  a datetime stamp or a shortened Git commit hash. Then, just use Branch Pipeline jobs for everything.
 
 # List of stages for jobs, and their order of execution
 stages:
@@ -32,21 +37,35 @@ stages:
 build-on-commit:
   stage: build
   rules:
+      # If we see a Git tag, we'll ignore it as we're using tags for PROD releases.
     - if: $CI_COMMIT_TAG
       when: never
+      # If the Git commit message has regex 'Version: #.#.#', we'll skip this as these
+      # should only come from our `yarn version` script process for PROD releases which
+      # is supposed to only update a few files that deal with the SemVer number.
     - if: '$CI_COMMIT_TITLE =~ /^Version: [[:digit:]]+.[[:digit:]]+.[[:digit:]]+$/'
       when: never
+      # Finally, if it is a standard Git Branch Pipeline, then we can build!
     - if: $CI_COMMIT_BRANCH
       when: always
   trigger:
     include:
       - local: '.gitlab-ci-1-build.yml'
+    # If we want extreme parallelism, we could disable `strategy:` to immediately
+    # start the next job (e.g., `test-on-commit`) as the default behavior is to
+    # let children work in the background. Meaning, the parent job finishes in
+    # 1 second (successfully) regardless of the child's success/fail.
+    # But, to save CI/CD costs, we'll have `strategy: depend` to ensure we don't
+    # keep doing SAST scanning or other things in the `test` stage if a commit
+    # broke the build. Thus, we'll save money, but it may take longer overall.
+    # As an added bonus: we won't tie-up the CI runners unnecessarily, too.
     strategy: depend
 
 # Job: Test when Git tag is NOT present.
 test-on-commit:
   stage: test
   rules:
+      # For an explantion of similar rules, see the previous job.
     - if: $CI_COMMIT_TAG
       when: never
     - if: '$CI_COMMIT_TITLE =~ /^Version: [[:digit:]]+.[[:digit:]]+.[[:digit:]]+$/'
@@ -60,9 +79,8 @@ test-on-commit:
 
 # Job: Deploy when a Git tag is ACTUALLY present.
 # To kickoff, do `yarn version --patch` (OR --minor OR --major) when you have confirmed the build succeeded.
-# As in, if you run `yarn version` on untested commits, then a BROKEN build may get released to PRODUCTION
-# since GitLab is configured to run both the Branch & Git Tag Pipelines at the same time. See the notes
-# above about a way to handle full CI/CD from local-dev to production if desired.
+# As in, if you run `yarn version` on untested commits, then a BROKEN build may get released to PRODUCTION.
+# Reminder: See the notes above about a way to handle full CI/CD from local-dev to production if desired.
 deploy-with-git-tag:
   stage: deploy
   rules:
