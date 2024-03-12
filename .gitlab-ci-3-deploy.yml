@@ -11,7 +11,7 @@ aws-secrets-manager:
   dependencies: []
   before_script:
     - 'set -euo pipefail'
-    - 'echo "Current shell is: $SHELL"'
+    #- 'echo "Current shell is: $SHELL"' # The $SHELL var is NOT available by default on Alpine. So, this shouldn't be used.
   script:
     # Note: The following env vars were defined in GitLab's UI (outside of this CI/CD pipeline) to ensure the AWS command will work:
     # $AWS_ACCESS_KEY_ID, $AWS_SECRET_ACCESS_KEY, and $AWS_DEFAULT_REGION
