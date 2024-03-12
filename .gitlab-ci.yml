@@ -34,6 +34,8 @@ build-on-commit:
   rules:
     - if: $CI_COMMIT_TAG
       when: never
+    - if: '$CI_COMMIT_TITLE =~ /^Version: [[:digit:]]+.[[:digit:]]+.[[:digit:]]+$/'
+      when: never
     - if: $CI_COMMIT_BRANCH
       when: always
   trigger:
@@ -46,6 +48,8 @@ test-on-commit:
   stage: test
   rules:
     - if: $CI_COMMIT_TAG
+      when: never
+    - if: '$CI_COMMIT_TITLE =~ /^Version: [[:digit:]]+.[[:digit:]]+.[[:digit:]]+$/'
       when: never
     - if: $CI_COMMIT_BRANCH
       when: always
