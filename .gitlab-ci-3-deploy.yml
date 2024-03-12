@@ -11,6 +11,7 @@ aws-secrets-manager:
   dependencies: []
   before_script:
     - 'set -euo pipefail'
+    - 'echo "Current shell is: $SHELL"'
   script:
     # Note: The following env vars were defined in GitLab's UI (outside of this CI/CD pipeline) to ensure the AWS command will work:
     # $AWS_ACCESS_KEY_ID, $AWS_SECRET_ACCESS_KEY, and $AWS_DEFAULT_REGION
@@ -40,6 +41,7 @@ containerize-and-publish-img:
     - aws-secrets-manager
   before_script:
     - 'set -euo pipefail'
+    - 'echo "Current shell is: $SHELL"'
   script:
     # Renames `kaniko-config.json` from the previous job to `config.json` inside of /kaniko/.docker
     # The `config.json` allows us to login to Docker Hub through Kaniko.
