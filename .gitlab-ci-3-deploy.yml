@@ -11,6 +11,7 @@ aws-secrets-manager:
   dependencies: []
   before_script:
     - 'set -euo pipefail'
+    - 'date' # Current datetime
     #- 'echo "Current shell is: $SHELL"' # The $SHELL var is NOT available by default on Alpine. So, this shouldn't be used.
   script:
     # Note: The following env vars were defined in GitLab's UI (outside of this CI/CD pipeline) to ensure the AWS command will work:
@@ -41,7 +42,8 @@ containerize-and-publish-img:
     - aws-secrets-manager
   before_script:
     - 'set -euo pipefail'
-    - 'echo "Current shell is: $SHELL"'
+    - 'date' # Current datetime
+    #- 'echo "Current shell is: $SHELL"' # The $SHELL var is NOT available with the Kaniko Executor. So, this shouldn't be used.
   script:
     # Renames `kaniko-config.json` from the previous job to `config.json` inside of /kaniko/.docker
     # The `config.json` allows us to login to Docker Hub through Kaniko.

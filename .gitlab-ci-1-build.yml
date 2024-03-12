@@ -20,6 +20,7 @@ stages:
   # Using `before_script` instead of `script` to be more readable, potentially more DRY, and to avoid other oddities between jobs.
   before_script:
     - 'set -euo pipefail'
+    - 'date' # Current datetime
     - 'echo "Current shell is: $SHELL"'
     - 'echo "Current directory: $(pwd)"'
     - 'echo "NPM version: $(npm --version)"'
