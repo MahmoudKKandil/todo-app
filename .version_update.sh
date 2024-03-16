@@ -56,6 +56,7 @@ if [[ "$update_remote_repo" == 'yes' || "$update_remote_repo" == 'y' ]]; then
     git push --atomic origin master "$new_app_ver"
 
     echo "@}-;--- Success! The app's version details have been updated correctly."
+
 else
     echo -e "\n@}-;--- Git push halted as neither 'yes' or 'y' was provided as a response."
     read -rp "Would you like to UNDO the LOCAL version change Git commit and tag (y/n)? " undo_version_changes
@@ -66,4 +67,5 @@ else
         git reset --soft HEAD~1
         echo -e "\n@}-;--- Undo complete! The Git tag was deleted, but the last commit has been put back to Git's --staged area to be safe."
     fi
+
 fi
