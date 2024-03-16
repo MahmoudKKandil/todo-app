@@ -1,4 +1,25 @@
+# Node.js dependencies [~60 MB] (Instead, package.json can be relied upon.)
 node_modules/
+
+# This folder may be created when doing local development without Docker, but
+# it is not needed when commiting to Git.
 sqlite_for_non_docker_dev/
+
+# Ad hoc folder for collecting different security scan reports.
 security_scans/
+
+# This folder is when SonarQube is used, which Git doesn't need to track.
 .scannerwork/
+
+# Note: For the Helm charts, they are currently being tracked by Git. This is
+# because the charts themselves are pretty small (~3-8 KB) for each version and
+# it helps mostly as a convenient place to store them and for an additional
+# place to back them up. The charts are also hosted on a separate Helm
+# repository (e.g., S3) which are meant for the primary chart pull location for
+# others. However, if we were making many changes to this Git repo quite often,
+# we could stop having Git to track the tarball forms of the Helm charts (.tgz)
+# and to only track the text file forms of the charts (.yaml, .md, et cetera);
+# such that we could rely solely on our main Helm repo for the chart tarballs.
+# This is being summarized to explain why the following lines are commented:
+#Kubernetes/helm-chart/index.yaml
+#Kubernetes/helm-chart/*.tgz

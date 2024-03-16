@@ -22,6 +22,8 @@ stages:
     - 'set -euo pipefail'
     - 'date' # Current datetime
     - 'echo "Current shell is: $SHELL"'
+    - 'echo "Git version: $(git --version)"'
+    - 'echo -e "Past two commits...\n$(git log -2)"'
     - 'echo "Current directory: $(pwd)"'
     - 'echo "NPM version: $(npm --version)"'
     # Unnecessary as the Node.js team already pre-installed Yarn v1.
