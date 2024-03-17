@@ -31,11 +31,9 @@ git checkout "$last_ver_tag"; blah='Coffee'; git checkout master
 chart_changed=$(git status | grep 'Kubernetes/helm-chart/todo-app/')
 
 if [[ "$chart_changed" == '' ]]; then
-    # The Helm chart files have NOT been changed at all.
-    echo 'NOT CHANGED'
+    echo -e "@}-;--- Helm chart: The files have not been changed, so Yarn should only\n\tincrement the semver patch number of the chart."
 
 else
-    # The Helm chart files HAVE BEEN changed in some way.
-    echo 'CHANGED'
+    echo -e "@}-;--- Helm chart: The files HAVE been changed in some way. Determining if the\n\tchart's semver seems accurate..."
 
 fi
