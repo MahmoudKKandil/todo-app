@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: {{ .Chart.Name }}
+        app-ver: {{ .Chart.AppVersion }}
+        helm-chart-ver: {{ .Chart.Version }}
     spec:
       containers:
         # Parses into something like: junktext/getting-started:1.0.4
