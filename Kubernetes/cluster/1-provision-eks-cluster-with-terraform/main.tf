@@ -77,7 +77,27 @@ module "eks" {
     one = {
       name = "node-group-1"
 
-      instance_types = ["t3a.medium"] # Max Pods: 17
+      # Prices updated as of 2024-03-18. Only included next, cheapest type by hardware capability.
+      # +-----------------------------+
+      # | CPU Architecture: x86-based |
+      # +-----------------------------+
+      # EC2 Type:  Max Pods | vCPU |  RAM   | On-Demand Hourly
+      # ---------------------------------------------------------------------------------------------------
+      # t2.micro          4 |    1 |  1 GiB | $0.0116 [Do NOT use! EKS needs 7 pods by itself.]
+      # t3a.medium       17 |    2 |  4 GiB | $0.0376 [Same notes, but more expensive than: t4g.medium]
+      # t3.medium        17 |    2 |  4 GiB | $0.0416 [Same notes, but more expensive than: t3a.medium]
+      # t3a.large        35 |    2 |  8 GiB | $0.0752 [Exactly twice as costly as: t3a.medium]
+      #
+      # +-----------------------+
+      # | CPU Architecture: ARM |
+      # +-----------------------+
+      # EC2 Type:  Max Pods | vCPU |  RAM   | On-Demand Hourly
+      # ---------------------------------------------------------------------------------------------------
+      # t4g.small        11 |    2 |  2 GiB | $0.0168 [Can't use with Flux, else no pods left.]
+      # t4g.medium       17 |    2 |  4 GiB | $0.0336 [With Metrics, Flux, & Gitlab: Only 1-2 pods left.]
+      # t4g.large        35 |    2 |  8 GiB | $0.0672 [Exactly twice as costly as: t4g.medium]
+      # c6g.large        29 |    2 |  4 GiB | $0.068  [More expensive with less # of pods than: t4g.large]
+      instance_types = ["t3a.large"]
 
       min_size = 1
       max_size = 3
