@@ -19,8 +19,8 @@ set -euo pipefail
 # So, the purpose of this `.version_update.sh` script is to handle all of this after we tell Yarn to do a semver update.
 # Once Yarn changes the app's version number in the `package.json` file to something like: "version": "1.0.22",
 # We will then grab just the 1.0.22 portion and store it as $new_app_ver
-new_app_ver="$(echo $(yarn version) | awk '{print $7}')"
-pub_ver_file='src/static/js/app.js'
+declare new_app_ver="$(echo $(yarn version) | awk '{print $7}')"
+declare pub_ver_file='src/static/js/app.js'
 
 echo -e "\n@}-;--- Yarn has updated the app's version to $new_app_ver in file: package.json"
 echo "@}-;--- Updating the app's version as shown in the web frontend at: $pub_ver_file"
@@ -44,11 +44,10 @@ git show "$new_app_ver"
 
 echo -e "\n@}-;--- The changes, shown above, are scheduled to be pushed to the remote Git repo..."
 
-# Gets user input and stores it as $update_remote_repo
+# Gets user input and stores everything in lowercase format.
+declare -l update_remote_repo
 read -rp "CONFIRMATION --> Do you wish to proceed (y/n)? " update_remote_repo
 
-# Converts whatever the user typed into lowercase characters.
-update_remote_repo="${update_remote_repo,,}"
 if [[ "$update_remote_repo" == 'yes' || "$update_remote_repo" == 'y' ]]; then
     echo -e "\n@}-;--- Pushing the changes to the remote Git repo..."
 
@@ -59,8 +58,8 @@ if [[ "$update_remote_repo" == 'yes' || "$update_remote_repo" == 'y' ]]; then
 
 else
     echo -e "\n@}-;--- Git push halted as neither 'yes' or 'y' was provided as a response."
+    declare -l undo_version_changes
     read -rp "Would you like to UNDO the LOCAL version change Git commit and tag (y/n)? " undo_version_changes
-    undo_version_changes="${undo_version_changes,,}"
 
     if [[ "$undo_version_changes" == 'yes' || "$undo_version_changes" == 'y' ]]; then
         git tag -d "$new_app_ver"
