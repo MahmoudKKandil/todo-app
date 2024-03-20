@@ -28,7 +28,8 @@ declare -A helm_chart_semver_results
 declare error_detected=''
 
 # Checks whether any changes have occurred with the Helm chart files.
-declare chart_changed="$(git status | grep 'Kubernetes/helm-chart/todo-app/')"
+declare chart_changed
+chart_changed="$(git status | grep 'Kubernetes/helm-chart/todo-app/')"
 
 # Finds the Helm chart semver details for both the old and latest chart files.
 # It is meant to only be called in either of these two ways:
@@ -52,7 +53,7 @@ function find_chart_semver() {
 # The Helm chart wasn't changed, so we don't need to do anything else as the
 # other parts of the CI/CD pipeline will handle the semver patch increment.
 if [[ "$chart_changed" == '' ]]; then
-    echo -e "@}-;--- Helm chart: The files have not been changed.\n\tSo '.version_update.sh' should only increment the chart's semver as a PATCH."
+    echo -e "@}-;--- Helm chart: The files have not been changed.\n\tSo '.version_update.sh' should only increment the chart's semver as a PATCH.\n"
 
 # But, if the Helm chart was changed, we should double-check the semver number.
 else

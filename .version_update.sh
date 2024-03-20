@@ -26,7 +26,7 @@ declare helm_chart_folder='Kubernetes/helm-chart'
 declare helm_chart_semver_string=''
 
 echo -e "\n@}-;--- Yarn has updated the app's version to $new_app_ver in file: package.json"
-echo "@}-;--- Updating the app's version as shown in the web frontend at: $pub_ver_file"
+echo -e "@}-;--- Updating the app's version as shown in the web frontend at: $pub_ver_file\n"
 
 # In the React code that gets shown to the browser, there is a line that says (with an example):
 #   Modified by junktext (v1.0.21)
@@ -34,14 +34,19 @@ echo "@}-;--- Updating the app's version as shown in the web frontend at: $pub_v
 sed -i -E "s/v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+/v$new_app_ver/" "$pub_ver_file"
 
 # Updates the Helm chart with the new 'appVersion' number (the app's container version)
+echo -e "@}-;--- Updating the Helm chart at: $helm_chart_file\n"
 sed -i -E "s/appVersion: \"[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+\"/appVersion: \"$new_app_ver\"/" "$helm_chart_file"
 
 # Updates the Helm chart 'version' (which is the version of the chart itself) as a PATCH, such as: 1.0.21 to 1.0.22
 helm_chart_semver_string=$(cat "$helm_chart_file" | grep -E '^version: "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+"$' | grep -Eo '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+')
+echo -e "@}-;--- Version details for the Helm chart..."
+echo -e "\tOld chart semver: $helm_chart_semver_string"
 helm_chart_semver_string=$(yarn -s semver -i patch "$helm_chart_semver_string")
+echo -e "\tNew chart semver: $helm_chart_semver_string"
 sed -i -E "s/version: \"[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+\"/version: \"$helm_chart_semver_string\"/" "$helm_chart_file"
 
 # Creates the new Helm chart package
+echo -e "\n@}-;--- Packaging up and updating the 'index.yaml' for the new Helm chart..."
 cd $helm_chart_folder
 ls
 helm lint todo-app
@@ -50,7 +55,7 @@ helm repo index .
 ls
 cd ../..
 
-echo "@}-;--- Performing a Git commit and tag to save the changes."
+echo -e "\n@}-;--- Performing a Git commit and tag to save the changes..."
 
 # We can then make a commit of all the version-related file changes.
 git add \
