@@ -13,6 +13,7 @@ validate-prechecks:
   before_script:
     - 'set -euo pipefail'
     - 'date' # Current datetime
+    - 'apt-get update; apt-get -y install git'
   script:
     - './.version_update_prechecks.sh'
   rules:
