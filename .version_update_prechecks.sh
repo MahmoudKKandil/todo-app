@@ -13,7 +13,7 @@
 # By: William Paul Liggett (https://junktext.com)
 
 # For script debugging:
-#set -x
+set -x
 
 # Exit with a non-zero result if any command in this script fails.
 set -euo pipefail
@@ -28,8 +28,8 @@ declare -A helm_chart_semver_results
 declare error_detected=''
 
 # Checks whether any changes have occurred with the Helm chart files.
-declare chart_changed
-chart_changed="$(git status | grep 'Kubernetes/helm-chart/todo-app/')"
+# declare chart_changed
+# chart_changed="$(git status | grep 'Kubernetes/helm-chart/todo-app/')"
 
 # Finds the Helm chart semver details for both the old and latest chart files.
 # It is meant to only be called in either of these two ways:
@@ -52,11 +52,12 @@ function find_chart_semver() {
 
 # The Helm chart wasn't changed, so we don't need to do anything else as the
 # other parts of the CI/CD pipeline will handle the semver patch increment.
-if [[ "$chart_changed" == '' ]]; then
-    echo -e "@}-;--- Helm chart: The files have not been changed.\n\tSo '.version_update.sh' should only increment the chart's semver as a PATCH.\n"
+# if [[ "$chart_changed" == '' ]]; then
+#     echo -e "@}-;--- Helm chart: The files have not been changed.\n\tSo '.version_update.sh' should only increment the chart's semver as a PATCH.\n"
 
 # But, if the Helm chart was changed, we should double-check the semver number.
-else
+# else
+if [[ $(git status | grep 'Kubernetes/helm-chart/todo-app/') ]]; then
     echo -e "@}-;--- Helm chart: The files HAVE been changed in some way.\n\tDetermining if the chart's semver seems accurate...\n"
 
     # We'll first get the chart's last `version` from the last release per Yarn.
@@ -109,4 +110,8 @@ else
     if [[ "$error_detected" == 'yes' ]]; then
         exit 1
     fi
+
+else
+    echo -e "@}-;--- Helm chart: The files have not been changed.\n\tSo '.version_update.sh' should only increment the chart's semver as a PATCH.\n"
+
 fi
