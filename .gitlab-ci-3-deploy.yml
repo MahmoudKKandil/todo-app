@@ -1,8 +1,19 @@
 # List of stages for jobs, and their order of execution
 stages:
+  - prechecks
   - dockerhub-login
   - containerize
   #- update-helm-chart
+
+# Job:
+validate-prechecks:
+  stage: prechecks
+  image: ubuntu:22.04
+  dependencies: []
+  script:
+    - './.version_update_prechecks.sh'
+  rules:
+    - if: $CI_COMMIT_TAG
 
 # Job:
 aws-secrets-manager:
