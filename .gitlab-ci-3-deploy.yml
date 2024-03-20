@@ -8,7 +8,7 @@ stages:
 # Job:
 validate-prechecks:
   stage: prechecks
-  image: ubuntu:22.04
+  image: ubuntu:22.04 # Using Ubuntu instead of Alpine as the prechecks script is built for Bash.
   dependencies: []
   script:
     - './.version_update_prechecks.sh'
