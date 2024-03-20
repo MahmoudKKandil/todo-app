@@ -2,8 +2,19 @@ apiVersion: v1
 entries:
   todo-app:
   - apiVersion: v2
+    appVersion: 1.0.28
+    created: "2024-03-20T15:27:28.111171715-04:00"
+    description: A web-based To-Do app to help you remember the things you need to
+      do!
+    digest: f86d5b0d32b764f78a2459cd7486b8a800e5eea594ba4a41aedbb2c429329a41
+    name: todo-app
+    type: application
+    urls:
+    - todo-app-1.2.4.tgz
+    version: 1.2.4
+  - apiVersion: v2
     appVersion: 1.0.27
-    created: "2024-03-19T18:48:59.587973331-04:00"
+    created: "2024-03-20T15:27:28.110453682-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 78b4bf34d92e5ed92d1b47640c12d299bb1774919a5d3e25732abc5b24b88286
@@ -14,7 +25,7 @@ entries:
     version: 1.2.3
   - apiVersion: v2
     appVersion: 1.0.26
-    created: "2024-03-19T18:48:59.587301498-04:00"
+    created: "2024-03-20T15:27:28.109680603-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 2c9be3b333880a881f46f1d5305c6c54d47290c22544c0a9f9e2578e8f3cd7c9
@@ -25,7 +36,7 @@ entries:
     version: 1.2.2
   - apiVersion: v2
     appVersion: 1.0.26
-    created: "2024-03-19T18:48:59.586239964-04:00"
+    created: "2024-03-20T15:27:28.108974892-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: ae7b690d7dd1dec2eb1fb4080d9aa2bbc9975f65fc3ea6070d16f37f92128eb4
@@ -36,7 +47,7 @@ entries:
     version: 1.2.1
   - apiVersion: v2
     appVersion: 1.0.26
-    created: "2024-03-19T18:48:59.5855858-04:00"
+    created: "2024-03-20T15:27:28.108066081-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: c08985d58cbbd22ea67658c424fc8a24ccd8ef83e54e79845080183f57683e8d
@@ -47,7 +58,7 @@ entries:
     version: 1.2.0
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2024-03-19T18:48:59.585141455-04:00"
+    created: "2024-03-20T15:27:28.106122844-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: db4d48620e5bbb48b3f4b7c81d5a45e18f357720dd176f920cd529df02b6bdd3
@@ -58,7 +69,7 @@ entries:
     version: 1.1.4
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-19T18:48:59.584565437-04:00"
+    created: "2024-03-20T15:27:28.105670971-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 265ab8f6dc165dd6cef25a33d860714dccf64ad7bb61885873bf6bfc7372bf5f
@@ -69,7 +80,7 @@ entries:
     version: 1.1.3
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-19T18:48:59.584030973-04:00"
+    created: "2024-03-20T15:27:28.105175963-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 4bd6a78d1f753ab3b7efef9c594e6826d0712a18dec9642f82d992dae61aa97a
@@ -80,7 +91,7 @@ entries:
     version: 1.1.2
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-19T18:48:59.583450227-04:00"
+    created: "2024-03-20T15:27:28.103915203-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 41a4216ebfafdee9d16b4a2dd8206528c92e7421f2186710b15e97e2982f7a3b
@@ -91,7 +102,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-19T18:48:59.582757491-04:00"
+    created: "2024-03-20T15:27:28.103410295-04:00"
     description: A Helm chart for Kubernetes with Docker's To-Do App (modifications
       by junktext).
     digest: f6b6dca9266869566232f5aff50dce93234cc978ba121eb6852bc296212d116d
@@ -102,7 +113,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-19T18:48:59.582072615-04:00"
+    created: "2024-03-20T15:27:28.102950848-04:00"
     description: A Helm chart for Kubernetes with Docker's To-Do App (modifications
       by junktext).
     digest: 05642da11e8fd811f1dd7a15a5ad945de2066880369707afe9b6582ce60d2e14
@@ -111,4 +122,4 @@ entries:
     urls:
     - todo-app-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-19T18:48:59.580488971-04:00"
+generated: "2024-03-20T15:27:28.10225302-04:00"
