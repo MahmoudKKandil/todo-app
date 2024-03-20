@@ -8,7 +8,7 @@
     "prettier_check": "./.code_formatter.sh --check",
     "test": "jest",
     "dev": "nodemon src/index.js",
-    "preversion": "yarn prettier_check && yarn test",
+    "preversion": "yarn prettier_check && yarn test && ./.version_update_prechecks.sh",
     "postversion": "./.version_update.sh"
   },
   "dependencies": {

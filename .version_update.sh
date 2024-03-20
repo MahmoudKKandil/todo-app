@@ -21,6 +21,9 @@ set -euo pipefail
 # We will then grab just the 1.0.22 portion and store it as $new_app_ver
 declare new_app_ver="$(echo $(yarn version) | awk '{print $7}')"
 declare pub_ver_file='src/static/js/app.js'
+declare helm_chart_file='Kubernetes/helm-chart/todo-app/Chart.yaml'
+declare helm_chart_folder='Kubernetes/helm-chart'
+declare helm_chart_semver_string=''
 
 echo -e "\n@}-;--- Yarn has updated the app's version to $new_app_ver in file: package.json"
 echo "@}-;--- Updating the app's version as shown in the web frontend at: $pub_ver_file"
@@ -30,10 +33,33 @@ echo "@}-;--- Updating the app's version as shown in the web frontend at: $pub_v
 # So, the following will update that portion of text with the new version number as (v1.0.22):
 sed -i -E "s/v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+/v$new_app_ver/" "$pub_ver_file"
 
+# Updates the Helm chart with the new 'appVersion' number (the app's container version)
+sed -i -E "s/appVersion: \"[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+\"/appVersion: \"$new_app_ver\"/" "$helm_chart_file"
+
+# Updates the Helm chart 'version' (which is the version of the chart itself) as a PATCH, such as: 1.0.21 to 1.0.22
+helm_chart_semver_string=$(cat "$helm_chart_file" | grep -E '^version: "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+"$' | grep -Eo '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+')
+helm_chart_semver_string=$(yarn -s semver -i patch "$helm_chart_semver_string")
+sed -i -E "s/version: \"[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+\"/version: \"$helm_chart_semver_string\"/" "$helm_chart_file"
+
+# Creates the new Helm chart package
+cd $helm_chart_folder
+ls
+helm lint todo-app
+helm package todo-app
+helm repo index .
+ls
+cd ../..
+
 echo "@}-;--- Performing a Git commit and tag to save the changes."
 
-# We can then make a commit which will have the changes of the `package.json` and that `app.js` file.
-git add package.json "$pub_ver_file"
+# We can then make a commit of all the version-related file changes.
+git add \
+    package.json \
+    "$pub_ver_file" \
+    "$helm_chart_folder/index.yaml" \
+    "$helm_chart_folder/todo-app/Chart.yaml" \
+    "$helm_chart_folder/todo-app-$helm_chart_semver_string.tgz"
+
 git commit -m "Version: $new_app_ver"
 
 # Next, we can then create a Git tag to reflect this as well:
@@ -42,7 +68,7 @@ git tag -a "$new_app_ver" -m "Version: $new_app_ver"
 # For sanity's sake, we'll confirm we want to publicly perform the Git commit/tag.
 git show "$new_app_ver"
 
-echo -e "\n@}-;--- The changes, shown above, are scheduled to be pushed to the remote Git repo..."
+echo -e "\n@}-;--- The changes, SHOWN ABOVE, are scheduled to be pushed to the remote Git repo..."
 
 # Gets user input and stores everything in lowercase format.
 declare -l update_remote_repo
