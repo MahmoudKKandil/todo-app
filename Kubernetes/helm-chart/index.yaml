@@ -2,8 +2,19 @@ apiVersion: v1
 entries:
   todo-app:
   - apiVersion: v2
+    appVersion: 1.0.30
+    created: "2024-03-20T19:47:55.843690389-04:00"
+    description: A web-based To-Do app to help you remember the things you need to
+      do!
+    digest: 9f9fa280dcee6c22f6437add1e70f045027958382dc29d434a3f999027edc490
+    name: todo-app
+    type: application
+    urls:
+    - todo-app-1.2.6.tgz
+    version: 1.2.6
+  - apiVersion: v2
     appVersion: 1.0.29
-    created: "2024-03-20T18:48:56.419021079-04:00"
+    created: "2024-03-20T19:47:55.843012706-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: b90ff3d1f8eb91d785306713e84d12a88295664b0e69758aedc5ffafd73127ab
@@ -14,7 +25,7 @@ entries:
     version: 1.2.5
   - apiVersion: v2
     appVersion: 1.0.28
-    created: "2024-03-20T18:48:56.418507994-04:00"
+    created: "2024-03-20T19:47:55.842245849-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: f86d5b0d32b764f78a2459cd7486b8a800e5eea594ba4a41aedbb2c429329a41
@@ -25,7 +36,7 @@ entries:
     version: 1.2.4
   - apiVersion: v2
     appVersion: 1.0.27
-    created: "2024-03-20T18:48:56.417872586-04:00"
+    created: "2024-03-20T19:47:55.841431162-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 78b4bf34d92e5ed92d1b47640c12d299bb1774919a5d3e25732abc5b24b88286
@@ -36,7 +47,7 @@ entries:
     version: 1.2.3
   - apiVersion: v2
     appVersion: 1.0.26
-    created: "2024-03-20T18:48:56.417325674-04:00"
+    created: "2024-03-20T19:47:55.840422214-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 2c9be3b333880a881f46f1d5305c6c54d47290c22544c0a9f9e2578e8f3cd7c9
@@ -47,7 +58,7 @@ entries:
     version: 1.2.2
   - apiVersion: v2
     appVersion: 1.0.26
-    created: "2024-03-20T18:48:56.416354627-04:00"
+    created: "2024-03-20T19:47:55.839598857-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: ae7b690d7dd1dec2eb1fb4080d9aa2bbc9975f65fc3ea6070d16f37f92128eb4
@@ -58,7 +69,7 @@ entries:
     version: 1.2.1
   - apiVersion: v2
     appVersion: 1.0.26
-    created: "2024-03-20T18:48:56.415459288-04:00"
+    created: "2024-03-20T19:47:55.83813423-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: c08985d58cbbd22ea67658c424fc8a24ccd8ef83e54e79845080183f57683e8d
@@ -69,7 +80,7 @@ entries:
     version: 1.2.0
   - apiVersion: v2
     appVersion: 1.0.5
-    created: "2024-03-20T18:48:56.414863575-04:00"
+    created: "2024-03-20T19:47:55.837114566-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: db4d48620e5bbb48b3f4b7c81d5a45e18f357720dd176f920cd529df02b6bdd3
@@ -80,7 +91,7 @@ entries:
     version: 1.1.4
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-20T18:48:56.414052481-04:00"
+    created: "2024-03-20T19:47:55.836021618-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 265ab8f6dc165dd6cef25a33d860714dccf64ad7bb61885873bf6bfc7372bf5f
@@ -91,7 +102,7 @@ entries:
     version: 1.1.3
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-20T18:48:56.413243786-04:00"
+    created: "2024-03-20T19:47:55.83481384-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 4bd6a78d1f753ab3b7efef9c594e6826d0712a18dec9642f82d992dae61aa97a
@@ -102,7 +113,7 @@ entries:
     version: 1.1.2
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-20T18:48:56.412424125-04:00"
+    created: "2024-03-20T19:47:55.83361948-04:00"
     description: A web-based To-Do app to help you remember the things you need to
       do!
     digest: 41a4216ebfafdee9d16b4a2dd8206528c92e7421f2186710b15e97e2982f7a3b
@@ -113,7 +124,7 @@ entries:
     version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-20T18:48:56.411403371-04:00"
+    created: "2024-03-20T19:47:55.832658618-04:00"
     description: A Helm chart for Kubernetes with Docker's To-Do App (modifications
       by junktext).
     digest: f6b6dca9266869566232f5aff50dce93234cc978ba121eb6852bc296212d116d
@@ -124,7 +135,7 @@ entries:
     version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.4
-    created: "2024-03-20T18:48:56.410154433-04:00"
+    created: "2024-03-20T19:47:55.831761938-04:00"
     description: A Helm chart for Kubernetes with Docker's To-Do App (modifications
       by junktext).
     digest: 05642da11e8fd811f1dd7a15a5ad945de2066880369707afe9b6582ce60d2e14
@@ -133,4 +144,4 @@ entries:
     urls:
     - todo-app-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-20T18:48:56.409500237-04:00"
+generated: "2024-03-20T19:47:55.830655964-04:00"
