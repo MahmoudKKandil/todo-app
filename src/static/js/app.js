@@ -6,7 +6,7 @@ function App() {
                 To-Do App<br />
                 <span style={{ fontWeight: 'normal' }}>
                     {/* The version number is updated via: $ yarn version */}
-                    Modified by junktext (v1.0.28)
+                    Modified by junktext (v1.0.29)
                 </span>
             </p>
             <Container>
