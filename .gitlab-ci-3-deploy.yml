@@ -10,6 +10,9 @@ validate-prechecks:
   stage: prechecks
   image: ubuntu:22.04 # Using Ubuntu instead of Alpine as the prechecks script is built for Bash.
   dependencies: []
+  before_script:
+    - 'set -euo pipefail'
+    - 'date' # Current datetime
   script:
     - './.version_update_prechecks.sh'
   rules:

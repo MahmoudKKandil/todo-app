@@ -18,6 +18,10 @@ set -x
 # Exit with a non-zero result if any command in this script fails.
 set -euo pipefail
 
+# Ensures that we have Git running (we want it to error if it is NOT installed)
+echo "@}-;--- Git version:"
+git --version
+
 echo -e "\n@}-;--- Running the '.version_update_prechecks.sh' to watch for certain problems before a release...\n"
 
 declare current_branch=''

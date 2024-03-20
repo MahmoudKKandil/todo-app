@@ -10,6 +10,10 @@
 # Exit with a non-zero result if any command in this script fails.
 set -euo pipefail
 
+# Ensures that we have Git running (we want it to error if it is NOT installed)
+echo "@}-;--- Git version:"
+git --version
+
 # Prerequisite: Ensure a file called `.yarnrc` exists in the main folder (above 'src/') with at least:
 #version-git-tag false
 # This will disable Yarn v1's default behavior to update only the `package.json` file with the new version,
