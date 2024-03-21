@@ -83,6 +83,7 @@ upload-helm-chart-to-s3:
     #- 'echo "Current shell is: $SHELL"' # The $SHELL var is NOT available by default on Alpine. So, this shouldn't be used.
   script:
     - 'cd Kubernetes/helm-chart'
+    - 'ls'
     - 'aws s3 sync $(pwd) s3://junktext-public-helm-charts --exclude "*" --include "index.yaml" --include "todo-app-*.*.*.tgz"'
   rules:
     - if: $CI_COMMIT_TAG
