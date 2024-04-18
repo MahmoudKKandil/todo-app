@@ -54,13 +54,7 @@ function find_chart_semver() {
     return 0
 }
 
-# The Helm chart wasn't changed, so we don't need to do anything else as the
-# other parts of the CI/CD pipeline will handle the semver patch increment.
-# if [[ "$chart_changed" == '' ]]; then
-#     echo -e "@}-;--- Helm chart: The files have not been changed.\n\tSo '.version_update.sh' should only increment the chart's semver as a PATCH.\n"
-
-# But, if the Helm chart was changed, we should double-check the semver number.
-# else
+# If the Helm chart was changed, we should double-check the semver number.
 if [[ $(git status | grep 'Kubernetes/helm-chart/todo-app/') ]]; then
     echo -e "@}-;--- Helm chart: The files HAVE been changed in some way.\n\tDetermining if the chart's semver seems accurate...\n"
 
@@ -73,14 +67,11 @@ if [[ $(git status | grep 'Kubernetes/helm-chart/todo-app/') ]]; then
     do
         # Inside our Helm's Chart.yaml, we are looking for something like:
         #version: "1.2.3"
-        #helm_chart_semver_string=$(git show "$branch":Kubernetes/helm-chart/todo-app/Chart.yaml | grep -E '^version: "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+"$' | grep -Eo '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+')
 
         if [[ "$branch" == "$last_yarn_ver_tag" ]]; then
-            #helm_chart_semver_results[last_chart]="$helm_chart_semver_string"
             find_chart_semver last_chart
 
         elif [[ "$branch" == "$current_branch" ]]; then
-            #helm_chart_semver_results[current_chart]="$helm_chart_semver_string"
             find_chart_semver current_chart
 
         fi
@@ -115,6 +106,8 @@ if [[ $(git status | grep 'Kubernetes/helm-chart/todo-app/') ]]; then
         exit 1
     fi
 
+# The Helm chart wasn't changed, so we don't need to do anything else as the
+# other parts of the CI/CD pipeline will handle the semver patch increment.
 else
     echo -e "@}-;--- Helm chart: The files have not been changed.\n\tSo '.version_update.sh' should only increment the chart's semver as a PATCH.\n"
 
