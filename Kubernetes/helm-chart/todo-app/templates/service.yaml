@@ -10,4 +10,4 @@ spec:
     protocol: TCP
   selector:
     app: {{ .Chart.Name }}  # Chart.yaml: The 'name' scalar.
-  type: LoadBalancer
+  type: {{ .Values.service.type }}
