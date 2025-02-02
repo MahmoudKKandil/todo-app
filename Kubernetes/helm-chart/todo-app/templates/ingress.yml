@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "argo-cd.fullname" . }}
+  name: {{ include "todo-app.fullname" . }}
   labels:
-    {{- include "argo-cd.labels" . | nindent 4 }}
+    {{- include "todo-app.labels" . | nindent 4 }}
   annotations:
     {{- range $key, $value := .Values.ingress.annotations }}
       {{ $key }}: {{ $value | quote }}
@@ -21,7 +21,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "argo-cd.fullname" . }}
+                name: {{ include "todo-app.fullname" . }}
                 port:
                   number: 80
           {{- end }}
