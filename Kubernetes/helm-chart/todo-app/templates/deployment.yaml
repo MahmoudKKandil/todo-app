@@ -1,32 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: {{ include "todo-app.fullname" . }}
   labels:
-    app: {{ .Chart.Name }}  # Chart.yaml: The 'name' scalar.
-  name: {{ .Release.Name }} # Name of the local Helm release.
+    {{- include "todo-app.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      {{- include "todo-app.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
-        app-ver: {{ .Chart.AppVersion }}
-        helm-chart-ver: {{ .Chart.Version }}
+        {{- include "todo-app.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        # Parses into something like: junktext/getting-started:1.0.4
-      - image: {{ .Values.image.repository }}:{{ .Chart.AppVersion }}
-        # We only have 1 container in each Pod, so we can just a simple name.
-        name: {{ .Release.Name }}
-        ports:
-          - containerPort: {{ .Values.service.port }}
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "10m"
-          limits: 
-            memory: "128Mi"
-            cpu: "200m"
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
